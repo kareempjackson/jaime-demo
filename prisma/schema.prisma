@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id         String   @id @default(uuid())
+  code       String   @unique
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  staff      Staff[]
+
+  @@map("stores")
+}
+
+model Staff {
+  id         String   @id @default(uuid())
+  store_id   String
+  name       String
+  pin_hash   String
+  is_owner   Boolean  @default(false)
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  store      Store    @relation(fields: [store_id], references: [id], onDelete: Cascade)
+
+  @@index([store_id])
+  @@map("staff")
+}
