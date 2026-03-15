@@ -2,14 +2,18 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Jaime Demo',
-  description: 'Built with Ghyst — powered by AI agents',
+  title: 'Juice Bar POS',
+  description: 'Staff portal for Juice Bar point of sale',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen bg-background text-foreground antialiased">
+    <html lang="en">
+      <body className="antialiased">
         {children}
       </body>
     </html>
