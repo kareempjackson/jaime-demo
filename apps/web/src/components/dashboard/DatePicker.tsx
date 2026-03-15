@@ -5,11 +5,13 @@ import { useState, useRef, useEffect } from 'react';
 interface DatePickerProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
+  maxDate?: Date;
 }
 
-export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
+export function DatePicker({ selectedDate, onDateChange, maxDate }: DatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [viewDate, setViewDate] = useState(selectedDate);
+  const [viewMonth, setViewMonth] = useState(selectedDate.getMonth());
+  const [viewYear, setViewYear] = useState(selectedDate.getFullYear());
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,183 +25,182 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const formatButtonDate = (date: Date): string => {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    if (date.toDateString() === today.toDateString()) {
-      return 'Today';
-    }
-    if (date.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday';
-    }
+  const formatDisplayDate = (date: Date): string => {
     return date.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
+      year: 'numeric',
     });
   };
 
-  const getDaysInMonth = (date: Date): Date[] => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const days: Date[] = [];
+  const getDaysInMonth = (month: number, year: number): number => {
+    return new Date(year, month + 1, 0).getDate();
+  };
 
-    const startPadding = firstDay.getDay();
-    for (let i = startPadding - 1; i >= 0; i--) {
-      const paddingDate = new Date(year, month, -i);
-      days.push(paddingDate);
+  const getFirstDayOfMonth = (month: number, year: number): number => {
+    return new Date(year, month, 1).getDay();
+  };
+
+  const isSameDay = (date1: Date, date2: Date): boolean => {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  };
+
+  const isDateDisabled = (date: Date): boolean => {
+    if (maxDate) {
+      const max = new Date(maxDate);
+      max.setHours(23, 59, 59, 999);
+      return date > max;
+    }
+    return false;
+  };
+
+  const handleDateSelect = (day: number) => {
+    const newDate = new Date(viewYear, viewMonth, day);
+    if (!isDateDisabled(newDate)) {
+      onDateChange(newDate);
+      setIsOpen(false);
+    }
+  };
+
+  const handlePrevMonth = () => {
+    if (viewMonth === 0) {
+      setViewMonth(11);
+      setViewYear(viewYear - 1);
+    } else {
+      setViewMonth(viewMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (viewMonth === 11) {
+      setViewMonth(0);
+      setViewYear(viewYear + 1);
+    } else {
+      setViewMonth(viewMonth + 1);
+    }
+  };
+
+  const goToToday = () => {
+    const today = new Date();
+    onDateChange(today);
+    setViewMonth(today.getMonth());
+    setViewYear(today.getFullYear());
+    setIsOpen(false);
+  };
+
+  const renderCalendar = () => {
+    const daysInMonth = getDaysInMonth(viewMonth, viewYear);
+    const firstDay = getFirstDayOfMonth(viewMonth, viewYear);
+    const days: JSX.Element[] = [];
+    const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+    // Day headers
+    dayNames.forEach((day) => {
+      days.push(
+        <div key={`header-${day}`} className="text-center text-xs text-[#6b6b70] font-medium py-2">
+          {day}
+        </div>
+      );
+    });
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      days.push(<div key={`empty-${i}`} />);
     }
 
-    for (let i = 1; i <= lastDay.getDate(); i++) {
-      days.push(new Date(year, month, i));
-    }
+    // Days of month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(viewYear, viewMonth, day);
+      const isSelected = isSameDay(date, selectedDate);
+      const isDisabled = isDateDisabled(date);
+      const isToday = isSameDay(date, new Date());
 
-    const endPadding = 42 - days.length;
-    for (let i = 1; i <= endPadding; i++) {
-      days.push(new Date(year, month + 1, i));
+      days.push(
+        <button
+          key={`day-${day}`}
+          onClick={() => handleDateSelect(day)}
+          disabled={isDisabled}
+          className={`
+            w-9 h-9 rounded-lg text-sm font-medium transition-colors
+            ${isSelected
+              ? 'bg-[#22c55e] text-[#0a0a0b]'
+              : isToday
+                ? 'bg-[#232326] text-[#fafafa]'
+                : isDisabled
+                  ? 'text-[#6b6b70] cursor-not-allowed'
+                  : 'text-[#a1a1a6] hover:bg-[#232326] hover:text-[#fafafa]'
+            }
+          `}
+        >
+          {day}
+        </button>
+      );
     }
 
     return days;
   };
 
-  const handlePrevMonth = () => {
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
-  };
-
-  const handleNextMonth = () => {
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1));
-  };
-
-  const handleDateSelect = (date: Date) => {
-    onDateChange(date);
-    setIsOpen(false);
-  };
-
-  const isToday = (date: Date): boolean => {
-    const today = new Date();
-    return date.toDateString() === today.toDateString();
-  };
-
-  const isSelected = (date: Date): boolean => {
-    return date.toDateString() === selectedDate.toDateString();
-  };
-
-  const isCurrentMonth = (date: Date): boolean => {
-    return date.getMonth() === viewDate.getMonth();
-  };
-
-  const isFuture = (date: Date): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return date > today;
-  };
-
-  const days = getDaysInMonth(viewDate);
-  const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div ref={containerRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-[#141416] border border-[#232326] rounded-xl px-4 py-3 hover:bg-[#1c1c1f] transition-colors min-h-[48px]"
+        className="flex items-center gap-2 bg-[#1c1c1f] hover:bg-[#232326] text-[#fafafa] px-4 py-3 rounded-xl transition-colors"
       >
-        <svg className="w-5 h-5 text-[#a1a1a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
+        <svg className="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <span className="text-[#fafafa] font-medium">{formatButtonDate(selectedDate)}</span>
-        <svg
-          className={`w-4 h-4 text-[#6b6b70] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <span className="font-medium">{formatDisplayDate(selectedDate)}</span>
+        <svg className={`w-4 h-4 text-[#6b6b70] transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 bg-[#141416] border border-[#232326] rounded-2xl p-4 shadow-xl z-50 w-[320px]">
+        <div className="absolute right-0 top-full mt-2 bg-[#141416] rounded-xl shadow-2xl border border-[#1c1c1f] p-4 z-50">
+          {/* Month/Year Header */}
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={handlePrevMonth}
-              className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-[#1c1c1f] transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#1c1c1f] text-[#a1a1a6] hover:text-[#fafafa] transition-colors"
             >
-              <svg className="w-5 h-5 text-[#a1a1a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <span className="text-[#fafafa] font-semibold">
-              {viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            <span className="text-[#fafafa] font-medium">
+              {monthNames[viewMonth]} {viewYear}
             </span>
             <button
               onClick={handleNextMonth}
-              className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-[#1c1c1f] transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#1c1c1f] text-[#a1a1a6] hover:text-[#fafafa] transition-colors"
             >
-              <svg className="w-5 h-5 text-[#a1a1a6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
 
-          <div className="grid grid-cols-7 gap-1 mb-2">
-            {weekDays.map((day) => (
-              <div key={day} className="h-8 flex items-center justify-center text-[#6b6b70] text-xs font-medium">
-                {day}
-              </div>
-            ))}
-          </div>
-
+          {/* Calendar Grid */}
           <div className="grid grid-cols-7 gap-1">
-            {days.map((date, index) => {
-              const disabled = isFuture(date);
-              const selected = isSelected(date);
-              const today = isToday(date);
-              const currentMonth = isCurrentMonth(date);
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => !disabled && handleDateSelect(date)}
-                  disabled={disabled}
-                  className={`
-                    h-10 w-10 flex items-center justify-center rounded-xl text-sm font-medium transition-colors
-                    ${disabled ? 'text-[#3a3a3d] cursor-not-allowed' : 'hover:bg-[#1c1c1f]'}
-                    ${!currentMonth && !disabled ? 'text-[#6b6b70]' : ''}
-                    ${currentMonth && !disabled && !selected ? 'text-[#fafafa]' : ''}
-                    ${selected ? 'bg-[#22c55e] text-[#0a0a0b]' : ''}
-                    ${today && !selected ? 'ring-1 ring-[#22c55e]' : ''}
-                  `}
-                >
-                  {date.getDate()}
-                </button>
-              );
-            })}
+            {renderCalendar()}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-[#232326] flex gap-2">
+          {/* Today Button */}
+          <div className="mt-4 pt-3 border-t border-[#1c1c1f]">
             <button
-              onClick={() => handleDateSelect(new Date())}
-              className="flex-1 py-2 text-sm font-medium text-[#22c55e] hover:bg-[#22c55e]/10 rounded-xl transition-colors"
+              onClick={goToToday}
+              className="w-full py-2 text-center text-[#22c55e] font-medium hover:bg-[#1c1c1f] rounded-lg transition-colors"
             >
-              Today
-            </button>
-            <button
-              onClick={() => {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                handleDateSelect(yesterday);
-              }}
-              className="flex-1 py-2 text-sm font-medium text-[#a1a1a6] hover:bg-[#1c1c1f] rounded-xl transition-colors"
-            >
-              Yesterday
+              Go to Today
             </button>
           </div>
         </div>
