@@ -14,9 +14,10 @@ interface OrderItem {
 interface Order {
   id: string;
   order_number: string;
+  status: string;
+  total_cents: number;
   created_at: string;
   completed_at: string | null;
-  total_cents: number;
   items: OrderItem[];
 }
 
@@ -42,115 +43,102 @@ export function OrdersTable({ orders }: OrdersTableProps) {
     });
   };
 
-  const getItemsSummary = (items: OrderItem[]): string => {
-    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-    return `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+  const toggleExpand = (orderId: string) => {
+    setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
+  };
+
+  const getStatusBadge = (status: string) => {
+    const statusStyles: Record<string, string> = {
+      pending: 'bg-[#f59e0b]/10 text-[#f59e0b]',
+      completed: 'bg-[#22c55e]/10 text-[#22c55e]',
+      cancelled: 'bg-red-500/10 text-red-500',
+    };
+    return statusStyles[status] || statusStyles.pending;
   };
 
   if (orders.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="w-16 h-16 bg-[#1c1c1f] rounded-full flex items-center justify-center mb-4">
-          <svg className="w-8 h-8 text-[#6b6b70]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>
+      <div className="bg-[#141416] rounded-2xl p-6 border border-[#232326]">
+        <h2 className="text-xl font-semibold text-[#fafafa] mb-6">Orders</h2>
+        <div className="flex items-center justify-center h-48 text-[#6b6b70]">
+          <p>No orders for this day</p>
         </div>
-        <p className="text-[#6b6b70] text-lg">No orders for this day</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-2">
-      {orders.map((order) => {
-        const isExpanded = expandedOrderId === order.id;
+    <div className="bg-[#141416] rounded-2xl border border-[#232326] overflow-hidden">
+      <div className="p-6 border-b border-[#232326]">
+        <h2 className="text-xl font-semibold text-[#fafafa]">Orders</h2>
+        <p className="text-[#6b6b70] text-sm mt-1">{orders.length} orders total</p>
+      </div>
 
-        return (
-          <div key={order.id} className="bg-[#1c1c1f] rounded-xl overflow-hidden">
-            {/* Order Row */}
+      <div className="divide-y divide-[#232326]">
+        {orders.map((order) => (
+          <div key={order.id}>
             <button
-              onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}
-              className="w-full flex items-center justify-between p-4 hover:bg-[#232326] transition-colors min-h-[64px]"
+              onClick={() => toggleExpand(order.id)}
+              className="w-full px-6 py-4 flex items-center justify-between hover:bg-[#1c1c1f] transition-colors text-left"
             >
-              <div className="flex items-center gap-4">
-                <div className="flex flex-col items-start">
-                  <span className="text-[#fafafa] font-semibold">
-                    {order.order_number}
-                  </span>
-                  <span className="text-[#6b6b70] text-sm">
-                    {formatTime(order.created_at)}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex flex-col items-end">
-                  <span className="text-[#fafafa] font-semibold">
-                    {formatCurrency(order.total_cents)}
-                  </span>
-                  <span className="text-[#a1a1a6] text-sm">
-                    {getItemsSummary(order.items)}
-                  </span>
-                </div>
-
+              <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                  {order.completed_at ? (
-                    <span className="px-2 py-1 bg-[#22c55e]/20 text-[#22c55e] text-xs font-medium rounded-lg">
-                      Completed
-                    </span>
-                  ) : (
-                    <span className="px-2 py-1 bg-[#f59e0b]/20 text-[#f59e0b] text-xs font-medium rounded-lg">
-                      Pending
-                    </span>
-                  )}
-
                   <svg
-                    className={`w-5 h-5 text-[#6b6b70] transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                    className={`w-5 h-5 text-[#6b6b70] transition-transform duration-200 ${
+                      expandedOrderId === order.id ? 'rotate-90' : ''
+                    }`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
+                  <span className="text-[#fafafa] font-mono font-medium">{order.order_number}</span>
                 </div>
+                <span className="text-[#a1a1a6] text-sm">{formatTime(order.created_at)}</span>
+                <span className={`px-2 py-1 rounded-md text-xs font-medium capitalize ${getStatusBadge(order.status)}`}>
+                  {order.status}
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="text-[#6b6b70] text-sm">{order.items.length} items</span>
+                <span className="text-[#fafafa] font-semibold min-w-[80px] text-right">
+                  {formatCurrency(order.total_cents)}
+                </span>
               </div>
             </button>
 
-            {/* Expanded Content */}
-            {isExpanded && (
-              <div className="border-t border-[#232326] p-4 bg-[#141416]">
-                <div className="space-y-3">
-                  {order.items.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-[#22c55e] font-medium min-w-[24px]">
-                          {item.quantity}x
-                        </span>
-                        <span className="text-[#fafafa]">{item.name}</span>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-[#6b6b70] text-sm">
-                          @ {formatCurrency(item.unit_price_cents)}
-                        </span>
-                        <span className="text-[#fafafa] font-medium min-w-[70px] text-right">
-                          {formatCurrency(item.subtotal_cents)}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-[#232326] flex items-center justify-between">
-                  <span className="text-[#a1a1a6]">Total</span>
-                  <span className="text-[#22c55e] font-bold text-lg">
-                    {formatCurrency(order.total_cents)}
-                  </span>
+            {expandedOrderId === order.id && (
+              <div className="px-6 pb-4 bg-[#1c1c1f]">
+                <div className="ml-7 border-l-2 border-[#232326] pl-6 py-2">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="text-[#6b6b70] text-xs uppercase tracking-wider">
+                        <th className="text-left py-2">Item</th>
+                        <th className="text-center py-2">Qty</th>
+                        <th className="text-right py-2">Unit Price</th>
+                        <th className="text-right py-2">Subtotal</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#232326]">
+                      {order.items.map((item) => (
+                        <tr key={item.id} className="text-sm">
+                          <td className="py-3 text-[#fafafa]">{item.name}</td>
+                          <td className="py-3 text-[#a1a1a6] text-center">{item.quantity}</td>
+                          <td className="py-3 text-[#a1a1a6] text-right">{formatCurrency(item.unit_price_cents)}</td>
+                          <td className="py-3 text-[#fafafa] text-right font-medium">
+                            {formatCurrency(item.subtotal_cents)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }
