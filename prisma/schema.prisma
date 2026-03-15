@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MenuItem {
+  id          String   @id @default(uuid())
+  name        String
+  priceCents  Int      @map("price_cents")
+  category    String?
+  isAvailable Boolean  @default(true) @map("is_available")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("menu_items")
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  orderNumber   String      @map("order_number")
+  totalCents    Int         @map("total_cents")
+  status        OrderStatus @default(PENDING)
+  completedAt   DateTime?   @map("completed_at")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  items         OrderItem[]
+
+  @@unique([orderNumber, createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id             String @id @default(uuid())
+  orderId        String @map("order_id")
+  menuItemId     String @map("menu_item_id")
+  itemName       String @map("item_name")
+  itemPriceCents Int    @map("item_price_cents")
+  quantity       Int
+  order          Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+model DailyOrderCounter {
+  id        String   @id @default(uuid())
+  date      DateTime @unique @db.Date
+  counter   Int      @default(0)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("daily_order_counters")
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
