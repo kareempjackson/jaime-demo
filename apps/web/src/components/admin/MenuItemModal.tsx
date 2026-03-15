@@ -1,80 +1,43 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { MenuItem } from '@/types/menu';
-import { Modal } from '@/components/ui/Modal';
-import { CloseIcon } from '@/components/icons/CloseIcon';
+import { MenuItem } from './AdminMenuScreen';
 
 interface MenuItemModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: { name: string; priceCents: number; category: string }) => void;
   item: MenuItem | null;
-  categories: string[];
-  isLoading: boolean;
+  existingCategories: string[];
+  onClose: () => void;
+  onSubmit: (data: { name: string; priceCents: number; category: string }) => Promise<void>;
 }
 
 export function MenuItemModal({
-  isOpen,
-  onClose,
-  onSave,
   item,
-  categories,
-  isLoading,
+  existingCategories,
+  onClose,
+  onSubmit,
 }: MenuItemModalProps) {
-  const [name, setName] = useState('');
-  const [priceDisplay, setPriceDisplay] = useState('');
-  const [category, setCategory] = useState('');
+  const [name, setName] = useState(item?.name || '');
+  const [priceDisplay, setPriceDisplay] = useState(
+    item ? (item.priceCents / 100).toFixed(2) : ''
+  );
+  const [category, setCategory] = useState(item?.category || '');
   const [isNewCategory, setIsNewCategory] = useState(false);
   const [newCategory, setNewCategory] = useState('');
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      if (item) {
-        setName(item.name);
-        setPriceDisplay(formatCentsToDisplay(item.priceCents));
-        setCategory(item.category || '');
-        setIsNewCategory(false);
-        setNewCategory('');
-      } else {
-        setName('');
-        setPriceDisplay('');
-        setCategory(categories[0] || '');
-        setIsNewCategory(false);
-        setNewCategory('');
-      }
-      setErrors({});
-      // Focus name input after modal opens
-      setTimeout(() => nameInputRef.current?.focus(), 100);
-    }
-  }, [isOpen, item, categories]);
+    nameInputRef.current?.focus();
+  }, []);
 
-  const formatCentsToDisplay = (cents: number): string => {
-    return (cents / 100).toFixed(2);
-  };
-
-  const parsePriceToCents = (value: string): number => {
+  const handlePriceChange = (value: string) => {
     const cleaned = value.replace(/[^0-9.]/g, '');
-    const parsed = parseFloat(cleaned);
-    if (isNaN(parsed)) return 0;
-    return Math.round(parsed * 100);
-  };
-
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    // Allow only numbers and one decimal point
-    if (/^\d*\.?\d{0,2}$/.test(value) || value === '') {
-      setPriceDisplay(value);
-    }
-  };
-
-  const handlePriceBlur = () => {
-    if (priceDisplay) {
-      const cents = parsePriceToCents(priceDisplay);
-      setPriceDisplay(formatCentsToDisplay(cents));
-    }
+    const parts = cleaned.split('.');
+    if (parts.length > 2) return;
+    if (parts[1] && parts[1].length > 2) return;
+    setPriceDisplay(cleaned);
   };
 
   const handleCategoryChange = (value: string) => {
@@ -87,55 +50,57 @@ export function MenuItemModal({
     }
   };
 
-  const validate = (): boolean => {
-    const newErrors: Record<string, string> = {};
-
-    if (!name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
-    const priceCents = parsePriceToCents(priceDisplay);
-    if (priceCents <= 0) {
-      newErrors.price = 'Price must be greater than 0';
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
 
     const finalCategory = isNewCategory ? newCategory.trim() : category;
+    
+    if (!name.trim()) {
+      setError('Name is required');
+      return;
+    }
+    if (!priceDisplay || parseFloat(priceDisplay) <= 0) {
+      setError('Valid price is required');
+      return;
+    }
     if (!finalCategory) {
-      newErrors.category = 'Category is required';
+      setError('Category is required');
+      return;
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    const priceCents = Math.round(parseFloat(priceDisplay) * 100);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    onSave({
-      name: name.trim(),
-      priceCents: parsePriceToCents(priceDisplay),
-      category: isNewCategory ? newCategory.trim() : category,
-    });
+    setIsSubmitting(true);
+    try {
+      await onSubmit({
+        name: name.trim(),
+        priceCents,
+        category: finalCategory,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save item');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-[#232326] rounded-2xl w-full max-w-md mx-4 overflow-hidden shadow-2xl">
-        <header className="flex items-center justify-between px-6 py-4 border-b border-[#2a2a2e]">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+      <div className="bg-[#232326] rounded-2xl w-full max-w-md shadow-2xl">
+        <div className="p-6 border-b border-[#2a2a2e]">
           <h2 className="text-xl font-semibold text-[#fafafa]">
-            {item ? 'Edit Item' : 'Add Item'}
+            {item ? 'Edit Item' : 'Add New Item'}
           </h2>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg text-[#a1a1a6] hover:text-[#fafafa] hover:bg-[#2a2a2e] transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label="Close"
-          >
-            <CloseIcon className="w-5 h-5" />
-          </button>
-        </header>
+        </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
+          {error && (
+            <div className="p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400 text-sm">
+              {error}
+            </div>
+          )}
+
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-[#a1a1a6] mb-2">
               Name
@@ -146,14 +111,9 @@ export function MenuItemModal({
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`w-full px-4 py-3 bg-[#1c1c1f] border rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all min-h-[48px] ${
-                errors.name ? 'border-[#ef4444]' : 'border-[#2a2a2e]'
-              }`}
-              placeholder="e.g., Green Goddess"
+              className="w-full px-4 py-3 bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:border-[#22c55e] transition-colors min-h-[48px]"
+              placeholder="e.g., Green Goddess Smoothie"
             />
-            {errors.name && (
-              <p className="mt-1 text-sm text-[#ef4444]">{errors.name}</p>
-            )}
           </div>
 
           <div>
@@ -165,56 +125,26 @@ export function MenuItemModal({
               <input
                 type="text"
                 id="price"
-                inputMode="decimal"
                 value={priceDisplay}
-                onChange={handlePriceChange}
-                onBlur={handlePriceBlur}
-                className={`w-full pl-8 pr-4 py-3 bg-[#1c1c1f] border rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all min-h-[48px] ${
-                  errors.price ? 'border-[#ef4444]' : 'border-[#2a2a2e]'
-                }`}
+                onChange={(e) => handlePriceChange(e.target.value)}
+                className="w-full pl-8 pr-4 py-3 bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:border-[#22c55e] transition-colors min-h-[48px]"
                 placeholder="0.00"
+                inputMode="decimal"
               />
             </div>
-            {errors.price && (
-              <p className="mt-1 text-sm text-[#ef4444]">{errors.price}</p>
-            )}
           </div>
 
           <div>
             <label htmlFor="category" className="block text-sm font-medium text-[#a1a1a6] mb-2">
               Category
             </label>
-            {!isNewCategory ? (
-              <select
-                id="category"
-                value={category}
-                onChange={(e) => handleCategoryChange(e.target.value)}
-                className={`w-full px-4 py-3 bg-[#1c1c1f] border rounded-xl text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all min-h-[48px] appearance-none cursor-pointer ${
-                  errors.category ? 'border-[#ef4444]' : 'border-[#2a2a2e]'
-                }`}
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b6b70' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 0.75rem center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '1.5em 1.5em',
-                }}
-              >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-                <option value="__new__">+ New Category</option>
-              </select>
-            ) : (
+            {isNewCategory ? (
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className={`flex-1 px-4 py-3 bg-[#1c1c1f] border rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:ring-2 focus:ring-[#22c55e] focus:border-transparent transition-all min-h-[48px] ${
-                    errors.category ? 'border-[#ef4444]' : 'border-[#2a2a2e]'
-                  }`}
+                  className="flex-1 px-4 py-3 bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl text-[#fafafa] placeholder-[#6b6b70] focus:outline-none focus:border-[#22c55e] transition-colors min-h-[48px]"
                   placeholder="New category name"
                   autoFocus
                 />
@@ -222,37 +152,49 @@ export function MenuItemModal({
                   type="button"
                   onClick={() => {
                     setIsNewCategory(false);
-                    setCategory(categories[0] || '');
+                    setNewCategory('');
                   }}
-                  className="px-4 py-3 bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl text-[#a1a1a6] hover:text-[#fafafa] hover:bg-[#2a2a2e] transition-colors min-h-[48px]"
+                  className="px-4 py-3 text-[#a1a1a6] hover:text-[#fafafa] hover:bg-[#2a2a2e] rounded-xl transition-colors min-h-[48px]"
                 >
                   Cancel
                 </button>
               </div>
-            )}
-            {errors.category && (
-              <p className="mt-1 text-sm text-[#ef4444]">{errors.category}</p>
+            ) : (
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => handleCategoryChange(e.target.value)}
+                className="w-full px-4 py-3 bg-[#1c1c1f] border border-[#2a2a2e] rounded-xl text-[#fafafa] focus:outline-none focus:border-[#22c55e] transition-colors min-h-[48px] appearance-none cursor-pointer"
+              >
+                <option value="" disabled>Select a category</option>
+                {existingCategories.map((cat) => (
+                  <option key={cat} value={cat} className="capitalize">
+                    {cat}
+                  </option>
+                ))}
+                <option value="__new__">+ New Category</option>
+              </select>
             )}
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 bg-[#1c1c1f] border border-[#2a2a2e] text-[#a1a1a6] font-medium rounded-xl hover:bg-[#2a2a2e] hover:text-[#fafafa] transition-colors min-h-[48px]"
+              className="flex-1 px-6 py-3 bg-[#2a2a2e] text-[#fafafa] font-medium rounded-xl hover:bg-[#333338] transition-colors min-h-[48px]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={isLoading}
-              className="flex-1 px-6 py-3 bg-[#22c55e] hover:bg-[#1ea550] text-[#fafafa] font-medium rounded-xl transition-colors min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isSubmitting}
+              className="flex-1 px-6 py-3 bg-[#22c55e] text-[#0a0a0b] font-semibold rounded-xl hover:bg-[#16a34a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
             >
-              {isLoading ? 'Saving...' : item ? 'Save Changes' : 'Add Item'}
+              {isSubmitting ? 'Saving...' : item ? 'Save Changes' : 'Add Item'}
             </button>
           </div>
         </form>
       </div>
-    </Modal>
+    </div>
   );
 }
