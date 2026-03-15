@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Juice bar store/location
+model Store {
+  id        String   @id @default(uuid())
+  name      String
+  pin       String   @db.VarChar(10)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  staff     Staff[]
+  menuItems MenuItem[]
+  orders    Order[]
+
+  @@map("stores")
+}
+
+/// Staff member belonging to a store
+model Staff {
+  id        String   @id @default(uuid())
+  storeId   String   @map("store_id")
+  name      String
+  pin       String   @db.VarChar(10)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  store  Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  orders Order[]
+
+  @@index([storeId])
+  @@map("staff")
+}
+
+/// Menu item available for sale at a store
+model MenuItem {
+  id         String   @id @default(uuid())
+  storeId    String   @map("store_id")
+  name       String
+  priceCents Int      @map("price_cents")
+  category   String
+  position   Int      @default(0)
+  archived   Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@index([storeId])
+  @@map("menu_items")
+}
+
+/// Order status enum
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+
+  @@map("order_status")
+}
+
+/// Customer order placed at a store
+model Order {
+  id          String      @id @default(uuid())
+  storeId     String      @map("store_id")
+  staffId     String      @map("staff_id")
+  status      OrderStatus @default(PENDING)
+  totalCents  Int         @map("total_cents")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  completedAt DateTime?   @map("completed_at")
+
+  store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  staff      Staff       @relation(fields: [staffId], references: [id], onDelete: Restrict)
+  orderItems OrderItem[]
+
+  @@index([storeId])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+/// Line item within an order (denormalized name/price for historical accuracy)
+model OrderItem {
+  id             String @id @default(uuid())
+  orderId        String @map("order_id")
+  menuItemId     String @map("menu_item_id")
+  itemName       String @map("item_name")
+  itemPriceCents Int    @map("item_price_cents")
+  quantity       Int    @default(1)
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
+
+  @@index([orderId])
+  @@map("order_items")
+}
