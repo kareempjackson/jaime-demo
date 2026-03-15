@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { MenuItem } from './AdminMenuScreen';
+import { MenuItem } from '@/types/menu';
 
 interface ArchivedItemsSectionProps {
   items: MenuItem[];
@@ -19,46 +19,45 @@ export function ArchivedItemsSection({ items, onRestore }: ArchivedItemsSectionP
     <div className="mt-8">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-3 w-full p-4 bg-[#141416] rounded-xl hover:bg-[#1c1c1f] transition-colors text-left"
+        className="flex items-center gap-3 text-[#6b6b70] hover:text-[#a1a1a6] transition-colors w-full py-3"
       >
         <svg
           width="20"
           height="20"
-          viewBox="0 0 20 20"
+          viewBox="0 0 24 24"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={`text-[#6b6b70] transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`transition-transform ${isExpanded ? 'rotate-90' : ''}`}
         >
-          <path d="M7 5L12 10L7 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span className="text-[#a1a1a6] font-medium">Archived Items</span>
-        <span className="text-[#6b6b70] text-sm">({items.length})</span>
+        <span className="font-medium">Archived Items ({items.length})</span>
       </button>
 
       {isExpanded && (
-        <div className="mt-2 bg-[#141416] rounded-xl p-4 space-y-2">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center gap-4 p-4 bg-[#1c1c1f] rounded-xl opacity-60 hover:opacity-100 transition-opacity"
-            >
-              <div className="flex-1 min-w-0">
-                <h3 className="text-[#fafafa] font-medium truncate">{item.name}</h3>
-                <p className="text-[#6b6b70] text-sm capitalize">{item.category}</p>
+        <div className="mt-3 bg-[#141416] rounded-2xl overflow-hidden opacity-75">
+          <div className="divide-y divide-[#232326]">
+            {items.map(item => (
+              <div key={item.id} className="flex items-center gap-4 px-5 py-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-[#a1a1a6] font-medium truncate">{item.name}</h3>
+                  <p className="text-sm text-[#6b6b70] capitalize">{item.category}</p>
+                </div>
+                <div className="text-[#6b6b70] font-semibold tabular-nums">
+                  {formatPrice(item.price_cents)}
+                </div>
+                <button
+                  onClick={() => onRestore(item)}
+                  className="px-4 py-2 text-[#22c55e] hover:bg-[#22c55e]/10 rounded-xl transition-colors min-h-[48px] font-medium"
+                >
+                  Restore
+                </button>
               </div>
-
-              <div className="text-[#a1a1a6] font-medium min-w-[80px] text-right">
-                {formatPrice(item.priceCents)}
-              </div>
-
-              <button
-                onClick={() => onRestore(item)}
-                className="px-4 py-2 text-[#22c55e] hover:bg-[#22c55e]/10 rounded-lg transition-colors font-medium min-h-[48px] flex items-center"
-              >
-                Restore
-              </button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>

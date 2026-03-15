@@ -1,16 +1,15 @@
 export interface MenuItem {
   id: string;
+  store_id: string;
   name: string;
-  description?: string;
-  priceCents: number;
+  price_cents: number;
   category: string;
   position: number;
   archived: boolean;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface MenuCategory {
-  name: string;
-  items: MenuItem[];
+export interface MenuItemsByCategory {
+  [category: string]: MenuItem[];
 }
