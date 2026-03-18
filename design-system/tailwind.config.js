@@ -2,33 +2,17 @@
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      // ===========================================
-      // COLORS
-      // ===========================================
+      /* =========================================
+         COLORS
+         ========================================= */
       colors: {
-        // Primary Green - Fresh & Healthy
+        // Primary - Vibrant Orange
         primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
-          DEFAULT: '#22c55e',
-        },
-        // Secondary Orange - Energetic & Citrus
-        secondary: {
           50: '#fff7ed',
           100: '#ffedd5',
           200: '#fed7aa',
@@ -40,9 +24,22 @@ module.exports = {
           800: '#9a3412',
           900: '#7c2d12',
           950: '#431407',
-          DEFAULT: '#f97316',
         },
-        // Accent Yellow - Sunshine & Tropical
+        // Secondary - Fresh Green
+        secondary: {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+          950: '#052e16',
+        },
+        // Accent - Tropical Yellow
         accent: {
           50: '#fefce8',
           100: '#fef9c3',
@@ -55,143 +52,145 @@ module.exports = {
           800: '#854d0e',
           900: '#713f12',
           950: '#422006',
-          DEFAULT: '#facc15',
         },
-        // Fruit Category Colors
-        berry: {
-          DEFAULT: '#dc2626',
-          light: '#fecaca',
+        // Fruit Palette
+        fruit: {
+          strawberry: '#dc2626',
+          watermelon: '#f43f5e',
+          mango: '#fbbf24',
+          pineapple: '#fde047',
+          kiwi: '#84cc16',
+          apple: '#22c55e',
+          mint: '#2dd4bf',
+          blueberry: '#6366f1',
+          grape: '#a855f7',
+          acai: '#7c3aed',
         },
-        tropical: {
-          DEFAULT: '#0891b2',
-          light: '#cffafe',
-        },
-        citrus: {
-          DEFAULT: '#f59e0b',
-          light: '#fef3c7',
-        },
-        leafy: {
-          DEFAULT: '#16a34a',
-          light: '#dcfce7',
-        },
-        // Semantic Colors
-        success: {
-          DEFAULT: '#22c55e',
-          light: '#dcfce7',
-        },
-        warning: {
-          DEFAULT: '#f59e0b',
-          light: '#fef3c7',
-        },
-        error: {
-          DEFAULT: '#ef4444',
-          light: '#fee2e2',
-        },
-        info: {
-          DEFAULT: '#3b82f6',
-          light: '#dbeafe',
-        },
+        // Backgrounds
+        cream: '#fffbeb',
+        mintbg: '#f0fdf4',
       },
-      
-      // ===========================================
-      // TYPOGRAPHY
-      // ===========================================
+
+      /* =========================================
+         TYPOGRAPHY
+         ========================================= */
       fontFamily: {
-        display: ['Fredoka', 'Comic Sans MS', 'cursive', 'sans-serif'],
-        heading: ['Nunito', 'Segoe UI', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+        display: ['Fredoka', 'Nunito', 'system-ui', 'sans-serif'],
+        body: ['Nunito', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
-      
       fontSize: {
-        'display-lg': ['3.75rem', { lineHeight: '1', fontWeight: '700' }],
-        'display-md': ['3rem', { lineHeight: '1', fontWeight: '700' }],
-        'display-sm': ['2.25rem', { lineHeight: '1.1', fontWeight: '700' }],
-        'heading-lg': ['1.875rem', { lineHeight: '1.25', fontWeight: '600' }],
-        'heading-md': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],
-        'heading-sm': ['1.25rem', { lineHeight: '1.4', fontWeight: '600' }],
-        'body-lg': ['1.125rem', { lineHeight: '1.6', fontWeight: '400' }],
-        'body-md': ['1rem', { lineHeight: '1.5', fontWeight: '400' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.5', fontWeight: '400' }],
-        'caption': ['0.75rem', { lineHeight: '1.4', fontWeight: '400' }],
+        '2xs': ['0.625rem', { lineHeight: '1rem' }],
       },
-      
-      // ===========================================
-      // SPACING
-      // ===========================================
+
+      /* =========================================
+         SPACING
+         ========================================= */
       spacing: {
         '18': '4.5rem',
-        '22': '5.5rem',
-        '30': '7.5rem',
+        '88': '22rem',
+        '128': '32rem',
       },
-      
-      // ===========================================
-      // BORDER RADIUS
-      // ===========================================
+
+      /* =========================================
+         BORDER RADIUS
+         ========================================= */
       borderRadius: {
         '4xl': '2rem',
         '5xl': '2.5rem',
       },
-      
-      // ===========================================
-      // BOX SHADOW
-      // ===========================================
+
+      /* =========================================
+         BOX SHADOW
+         ========================================= */
       boxShadow: {
-        'glow-green': '0 0 20px rgb(34 197 94 / 0.3)',
-        'glow-orange': '0 0 20px rgb(249 115 22 / 0.3)',
-        'glow-yellow': '0 0 20px rgb(250 204 21 / 0.3)',
-        'card': '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
-        'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
+        'primary': '0 4px 14px 0 rgba(249, 115, 22, 0.3)',
+        'secondary': '0 4px 14px 0 rgba(34, 197, 94, 0.3)',
+        'accent': '0 4px 14px 0 rgba(234, 179, 8, 0.3)',
+        'glow': '0 0 20px rgba(249, 115, 22, 0.4)',
+        'glow-green': '0 0 20px rgba(34, 197, 94, 0.4)',
       },
-      
-      // ===========================================
-      // ANIMATIONS
-      // ===========================================
+
+      /* =========================================
+         ANIMATIONS
+         ========================================= */
       animation: {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-slow': 'pulse 3s infinite',
-        'wiggle': 'wiggle 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.3s ease-out',
-        'slide-down': 'slideDown 0.3s ease-out',
-        'fade-in': 'fadeIn 0.3s ease-out',
-        'scale-in': 'scaleIn 0.2s ease-out',
+        'wiggle': 'wiggle 1s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'squeeze': 'squeeze 0.3s ease-in-out',
       },
-      
       keyframes: {
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         },
-        slideUp: {
-          '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
-        slideDown: {
-          '0%': { transform: 'translateY(-10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        scaleIn: {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
+        squeeze: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.95)' },
         },
       },
-      
-      // ===========================================
-      // BACKGROUND IMAGES
-      // ===========================================
+
+      /* =========================================
+         BACKGROUND IMAGE
+         ========================================= */
       backgroundImage: {
-        'gradient-fresh': 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-        'gradient-tropical': 'linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%)',
-        'gradient-citrus': 'linear-gradient(135deg, #fefce8 0%, #fef9c3 100%)',
-        'gradient-primary': 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-        'gradient-secondary': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
-        'gradient-hero': 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 50%, #fff7ed 100%)',
+        'gradient-fresh': 'linear-gradient(135deg, #4ade80, #16a34a)',
+        'gradient-tropical': 'linear-gradient(135deg, #fb923c, #facc15)',
+        'gradient-berry': 'linear-gradient(135deg, #dc2626, #a855f7)',
+        'gradient-citrus': 'linear-gradient(135deg, #f97316, #fde047)',
+        'gradient-ocean': 'linear-gradient(135deg, #2dd4bf, #6366f1)',
+        'pattern-dots': 'radial-gradient(circle, #e5e5e5 1px, transparent 1px)',
+        'pattern-fruit': 'url("/patterns/fruit-pattern.svg")',
+      },
+
+      /* =========================================
+         TRANSITIONS
+         ========================================= */
+      transitionTimingFunction: {
+        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },
-  plugins: [],
-};
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    // Custom plugin for juice bar specific utilities
+    function({ addUtilities, addComponents }) {
+      addUtilities({
+        '.text-gradient-juice': {
+          'background': 'linear-gradient(135deg, #f97316, #facc15)',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'background-clip': 'text',
+        },
+        '.text-gradient-fresh': {
+          'background': 'linear-gradient(135deg, #22c55e, #4ade80)',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'background-clip': 'text',
+        },
+      })
+      addComponents({
+        '.btn-juice': {
+          '@apply px-6 py-3 bg-primary-500 text-white font-semibold rounded-2xl shadow-primary hover:bg-primary-600 hover:shadow-lg transition-all duration-200 active:scale-95': {},
+        },
+        '.btn-fresh': {
+          '@apply px-6 py-3 bg-secondary-500 text-white font-semibold rounded-2xl shadow-secondary hover:bg-secondary-600 hover:shadow-lg transition-all duration-200 active:scale-95': {},
+        },
+        '.card-juice': {
+          '@apply bg-white rounded-3xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300': {},
+        },
+        '.badge-fruit': {
+          '@apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium': {},
+        },
+      })
+    },
+  ],
+}

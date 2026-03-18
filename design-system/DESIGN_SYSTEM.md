@@ -1,51 +1,68 @@
-# Jaime Demo Design System
+# Jaime Demo - Juice Bar Design System
 
-## Juice Bar Design Language
-
-A fresh, vibrant, and energetic design system built for a modern juice bar application. The design language emphasizes health, freshness, and natural ingredients through its color palette, typography, and visual elements.
+> A fresh, vibrant design language for a modern juice bar application
 
 ---
 
-## 🎨 Color Palette
+## 🎨 Design Philosophy
+
+Our design system embodies the **freshness**, **energy**, and **health-conscious** nature of a juice bar. Every element should feel:
+
+- **Fresh** - Clean, bright, and invigorating
+- **Natural** - Organic shapes, earthy tones balanced with vibrant fruits
+- **Approachable** - Friendly, rounded, and welcoming
+- **Energetic** - Dynamic colors that inspire vitality
+
+---
+
+## 🌈 Color Palette
 
 ### Primary Colors
 
-**Primary Green** - Represents freshness, health, and natural ingredients
-- Use for: Primary buttons, success states, health-focused elements
-- Main: `#22c55e` (primary-500)
-- Light backgrounds: `#f0fdf4` (primary-50)
-- Dark accents: `#15803d` (primary-700)
+| Name | Hex | Usage |
+|------|-----|-------|
+| **Orange 500** | `#f97316` | Primary actions, CTAs, brand identity |
+| **Orange 600** | `#ea580c` | Hover states, emphasis |
+| **Orange 400** | `#fb923c` | Secondary elements, highlights |
 
-**Secondary Orange** - Represents energy, citrus, and vitality
-- Use for: Secondary actions, highlights, energetic elements
-- Main: `#f97316` (secondary-500)
-- Light backgrounds: `#fff7ed` (secondary-50)
-- Dark accents: `#c2410c` (secondary-700)
+### Secondary Colors
 
-**Accent Yellow** - Represents sunshine, tropical fruits, and happiness
-- Use for: Accent elements, promotions, call-to-actions
-- Main: `#facc15` (accent-400)
-- Light backgrounds: `#fefce8` (accent-50)
+| Name | Hex | Usage |
+|------|-----|-------|
+| **Green 500** | `#22c55e` | Success states, health indicators, fresh items |
+| **Green 600** | `#16a34a` | Hover states |
+| **Green 400** | `#4ade80` | Accents, badges |
 
-### Fruit Category Colors
+### Accent Colors
 
-Used for categorizing menu items and creating visual variety:
+| Name | Hex | Usage |
+|------|-----|-------|
+| **Yellow 400** | `#facc15` | Highlights, promotions, energy |
+| **Yellow 300** | `#fde047` | Light accents |
 
-| Category | Color | Light | Use Case |
-|----------|-------|-------|----------|
-| Berry | `#dc2626` | `#fecaca` | Berry-based juices |
-| Tropical | `#0891b2` | `#cffafe` | Tropical fruit blends |
-| Citrus | `#f59e0b` | `#fef3c7` | Citrus juices |
-| Leafy | `#16a34a` | `#dcfce7` | Green smoothies |
+### Fruit Palette
+
+Special colors for menu items and categories:
+
+| Fruit | Hex | Use Case |
+|-------|-----|----------|
+| 🍓 Strawberry | `#dc2626` | Berry category |
+| 🍉 Watermelon | `#f43f5e` | Summer specials |
+| 🥭 Mango | `#fbbf24` | Tropical category |
+| 🍍 Pineapple | `#fde047` | Citrus highlights |
+| 🥝 Kiwi | `#84cc16` | Green juices |
+| 🍏 Apple | `#22c55e` | Classic greens |
+| 🌿 Mint | `#2dd4bf` | Refreshing options |
+| 🫐 Blueberry | `#6366f1` | Antioxidant category |
+| 🍇 Grape | `#a855f7` | Premium items |
+| Açaí | `#7c3aed` | Superfood category |
 
 ### Semantic Colors
 
-| Purpose | Color | Light Variant |
-|---------|-------|---------------|
-| Success | `#22c55e` | `#dcfce7` |
-| Warning | `#f59e0b` | `#fef3c7` |
-| Error | `#ef4444` | `#fee2e2` |
-| Info | `#3b82f6` | `#dbeafe` |
+- **Success**: Green 500 (`#22c55e`)
+- **Warning**: Amber 500 (`#f59e0b`)
+- **Error**: Red 500 (`#ef4444`)
+- **Info**: Blue 500 (`#3b82f6`)
 
 ---
 
@@ -54,205 +71,247 @@ Used for categorizing menu items and creating visual variety:
 ### Font Families
 
 ```css
-/* Display - Fun & Friendly headlines */
-font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
-
-/* Headings - Clean & Modern */
-font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
-
-/* Body - Highly readable */
-font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-
-/* Monospace - Prices & codes */
-font-family: 'JetBrains Mono', 'Fira Code', monospace;
+--font-family-display: 'Fredoka', 'Nunito', system-ui, sans-serif;
+--font-family-body: 'Nunito', 'Inter', system-ui, sans-serif;
+--font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 ```
 
-### Font Loading
+### Font Stack Recommendations
 
-Add to your HTML `<head>`:
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-```
+1. **Fredoka** - Display headings, logo text (playful, rounded)
+2. **Nunito** - Body text, UI elements (friendly, readable)
+3. **Inter** - Fallback, data-heavy sections (clean, neutral)
 
 ### Type Scale
 
-| Name | Size | Line Height | Weight | Use Case |
-|------|------|-------------|--------|----------|
-| display-lg | 60px | 1 | 700 | Hero headlines |
-| display-md | 48px | 1 | 700 | Page titles |
-| display-sm | 36px | 1.1 | 700 | Section headers |
-| heading-lg | 30px | 1.25 | 600 | Major headings |
-| heading-md | 24px | 1.3 | 600 | Subheadings |
-| heading-sm | 20px | 1.4 | 600 | Card titles |
-| body-lg | 18px | 1.6 | 400 | Lead paragraphs |
-| body-md | 16px | 1.5 | 400 | Body text |
-| body-sm | 14px | 1.5 | 400 | Secondary text |
-| caption | 12px | 1.4 | 400 | Labels, hints |
+| Name | Size | Line Height | Usage |
+|------|------|-------------|-------|
+| `text-xs` | 12px | 1rem | Captions, labels |
+| `text-sm` | 14px | 1.25rem | Secondary text |
+| `text-base` | 16px | 1.5rem | Body text |
+| `text-lg` | 18px | 1.75rem | Large body |
+| `text-xl` | 20px | 1.75rem | Small headings |
+| `text-2xl` | 24px | 2rem | H4 |
+| `text-3xl` | 30px | 2.25rem | H3 |
+| `text-4xl` | 36px | 2.5rem | H2 |
+| `text-5xl` | 48px | 1 | H1 |
+| `text-6xl` | 60px | 1 | Display |
+
+### Font Weights
+
+- **Regular (400)**: Body text
+- **Medium (500)**: Emphasis
+- **Semibold (600)**: Subheadings
+- **Bold (700)**: Headings
+- **Extrabold (800)**: Display, hero text
 
 ---
 
-## 📐 Spacing
+## 📐 Spacing System
 
-Using a 4px base unit:
+Based on a 4px grid:
 
 | Token | Value | Pixels |
 |-------|-------|--------|
-| space-1 | 0.25rem | 4px |
-| space-2 | 0.5rem | 8px |
-| space-3 | 0.75rem | 12px |
-| space-4 | 1rem | 16px |
-| space-5 | 1.25rem | 20px |
-| space-6 | 1.5rem | 24px |
-| space-8 | 2rem | 32px |
-| space-10 | 2.5rem | 40px |
-| space-12 | 3rem | 48px |
-| space-16 | 4rem | 64px |
-| space-20 | 5rem | 80px |
-| space-24 | 6rem | 96px |
+| `space-1` | 0.25rem | 4px |
+| `space-2` | 0.5rem | 8px |
+| `space-3` | 0.75rem | 12px |
+| `space-4` | 1rem | 16px |
+| `space-5` | 1.25rem | 20px |
+| `space-6` | 1.5rem | 24px |
+| `space-8` | 2rem | 32px |
+| `space-10` | 2.5rem | 40px |
+| `space-12` | 3rem | 48px |
+| `space-16` | 4rem | 64px |
+| `space-20` | 5rem | 80px |
+| `space-24` | 6rem | 96px |
 
 ---
 
 ## 🔲 Border Radius
 
-Rounded, friendly corners that match the organic, natural theme:
+Rounded, friendly shapes are key to our aesthetic:
 
-| Token | Value | Use Case |
-|-------|-------|----------|
-| radius-sm | 4px | Small elements, tags |
-| radius-md | 8px | Inputs, small cards |
-| radius-lg | 12px | Cards, buttons |
-| radius-xl | 16px | Large cards |
-| radius-2xl | 24px | Modal, featured cards |
-| radius-3xl | 32px | Hero elements |
-| radius-full | 9999px | Avatars, pills |
+| Token | Value | Usage |
+|-------|-------|-------|
+| `rounded-sm` | 4px | Subtle rounding |
+| `rounded-md` | 8px | Buttons, inputs |
+| `rounded-lg` | 12px | Cards, containers |
+| `rounded-xl` | 16px | Large cards |
+| `rounded-2xl` | 24px | Hero sections |
+| `rounded-3xl` | 32px | Featured cards |
+| `rounded-full` | 9999px | Pills, avatars |
+
+**Default choice**: `rounded-2xl` for cards, `rounded-xl` for buttons
 
 ---
 
-## 🌑 Shadows
+## 🌫 Shadows
+
+### Standard Shadows
 
 ```css
-/* Standard shadows */
-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+```
 
-/* Glow shadows for emphasis */
-shadow-glow-green: 0 0 20px rgb(34 197 94 / 0.3);
-shadow-glow-orange: 0 0 20px rgb(249 115 22 / 0.3);
+### Colored Shadows (Brand Enhancement)
+
+```css
+--shadow-primary: 0 4px 14px 0 rgba(249, 115, 22, 0.3);
+--shadow-secondary: 0 4px 14px 0 rgba(34, 197, 94, 0.3);
+```
+
+Use colored shadows on CTAs and featured elements to add warmth.
+
+---
+
+## 🎬 Animations & Transitions
+
+### Timing
+
+- **Fast**: 150ms - Micro-interactions
+- **Normal**: 250ms - Most transitions
+- **Slow**: 350ms - Page transitions
+- **Bounce**: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) - Playful interactions
+
+### Key Animations
+
+```css
+/* Gentle floating for featured items */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Playful wiggle for attention */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Juice squeeze effect */
+@keyframes squeeze {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+}
 ```
 
 ---
 
-## 🎬 Animations
-
-### Transitions
-
-| Name | Duration | Use Case |
-|------|----------|----------|
-| transition-fast | 150ms | Micro-interactions |
-| transition-normal | 250ms | Standard transitions |
-| transition-slow | 350ms | Complex animations |
-| transition-bounce | 500ms | Playful interactions |
-
-### Keyframe Animations
-
-- `animate-wiggle` - Playful attention grabber
-- `animate-slide-up` - Content entering from below
-- `animate-slide-down` - Dropdowns, menus
-- `animate-fade-in` - Subtle appearance
-- `animate-scale-in` - Modal/popup entrance
-- `animate-bounce-slow` - Gentle bounce
-- `animate-pulse-slow` - Subtle pulsing
-
----
-
-## 🧩 Component Guidelines
+## 🧩 Components
 
 ### Buttons
 
 ```jsx
-// Primary - Main actions
-<button className="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-glow-green transition-all">
+// Primary Button (Juice)
+<button className="btn-juice">
   Order Now
 </button>
 
-// Secondary - Alternative actions
-<button className="bg-secondary-500 hover:bg-secondary-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-glow-orange transition-all">
+// Secondary Button (Fresh)
+<button className="btn-fresh">
   View Menu
 </button>
 
-// Outline - Subtle actions
-<button className="border-2 border-primary-500 text-primary-600 hover:bg-primary-50 font-semibold px-6 py-3 rounded-xl transition-all">
-  Learn More
-</button>
+// Tailwind classes:
+// px-6 py-3 bg-primary-500 text-white font-semibold 
+// rounded-2xl shadow-primary hover:bg-primary-600 
+// hover:shadow-lg transition-all duration-200 active:scale-95
 ```
 
 ### Cards
 
 ```jsx
-<div className="bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 transition-all">
-  <h3 className="font-heading text-heading-sm text-neutral-900">Green Goddess</h3>
-  <p className="font-body text-body-sm text-neutral-600 mt-2">Spinach, kale, apple, ginger</p>
-  <span className="font-mono text-lg text-primary-600 font-semibold mt-4 block">$8.99</span>
+// Product Card
+<div className="card-juice">
+  {/* bg-white rounded-3xl shadow-lg p-6 
+      hover:shadow-xl transition-shadow duration-300 */}
 </div>
 ```
 
-### Form Inputs
+### Badges
 
 ```jsx
-<input 
-  className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all font-body text-body-md"
-  placeholder="Enter your email"
-/>
+// Fruit Badge
+<span className="badge-fruit bg-fruit-strawberry/10 text-fruit-strawberry">
+  Berry Blend
+</span>
 ```
 
 ---
 
 ## 📱 Responsive Breakpoints
 
-| Breakpoint | Width | Use Case |
-|------------|-------|----------|
-| sm | 640px | Mobile landscape |
-| md | 768px | Tablets |
-| lg | 1024px | Small desktops |
-| xl | 1280px | Desktops |
-| 2xl | 1536px | Large screens |
+| Breakpoint | Width | Target |
+|------------|-------|--------|
+| `sm` | 640px | Large phones |
+| `md` | 768px | Tablets |
+| `lg` | 1024px | Laptops |
+| `xl` | 1280px | Desktops |
+| `2xl` | 1536px | Large screens |
 
 ---
 
-## 🍎 Brand Voice
+## 🌙 Dark Mode
 
-- **Fresh** - Clean, crisp, and natural
-- **Friendly** - Approachable and welcoming
-- **Energetic** - Vibrant and lively
-- **Healthy** - Promoting wellness and good choices
-- **Modern** - Contemporary and tech-forward
-
----
-
-## 📁 File Structure
-
-```
-design-system/
-├── tokens.css          # CSS custom properties
-├── tailwind.config.js  # Tailwind configuration
-└── DESIGN_SYSTEM.md    # This documentation
-```
-
----
-
-## Usage
-
-1. Import `tokens.css` in your main stylesheet
-2. Configure Tailwind with the provided config
-3. Load Google Fonts in your HTML
-4. Reference this guide for component patterns
+Dark mode uses deep, rich backgrounds that complement the vibrant fruit colors:
 
 ```css
-/* In your global CSS */
+[data-theme="dark"] {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #171717;
+  --color-bg-tertiary: #262626;
+}
+```
+
+---
+
+## ✅ Usage Guidelines
+
+### Do's
+
+- ✅ Use rounded corners liberally (2xl, 3xl)
+- ✅ Apply colored shadows on CTAs
+- ✅ Use fruit palette for menu categorization
+- ✅ Keep interactions bouncy and playful
+- ✅ Maintain generous whitespace
+
+### Don'ts
+
+- ❌ Use sharp corners (except for data tables)
+- ❌ Overuse gradients - save for special elements
+- ❌ Mix too many fruit colors in one view
+- ❌ Use gray where a subtle tint would work better
+
+---
+
+## 📦 Installation
+
+### Google Fonts
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+```
+
+### Import Tokens
+
+```css
 @import './design-system/tokens.css';
 ```
+
+### Tailwind Config
+
+```js
+// tailwind.config.js
+module.exports = require('./design-system/tailwind.config.js');
+```
+
+---
+
+*Last updated: Sprint 1*
+*Version: 1.0.0*

@@ -1,37 +1,38 @@
-/* Jaime Demo - Juice Bar Design Tokens */
+/* Jaime Demo - Juice Bar Design System Tokens */
+/* Fresh, vibrant, and healthy aesthetic */
 
 :root {
   /* ===========================================
-     PRIMARY COLORS - Fresh & Vibrant
+     PRIMARY COLORS - Fresh Citrus Theme
      =========================================== */
   
-  /* Primary Green - Represents freshness and health */
-  --color-primary-50: #f0fdf4;
-  --color-primary-100: #dcfce7;
-  --color-primary-200: #bbf7d0;
-  --color-primary-300: #86efac;
-  --color-primary-400: #4ade80;
-  --color-primary-500: #22c55e;
-  --color-primary-600: #16a34a;
-  --color-primary-700: #15803d;
-  --color-primary-800: #166534;
-  --color-primary-900: #14532d;
-  --color-primary-950: #052e16;
+  /* Primary - Vibrant Orange (Energy, Freshness) */
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
   
-  /* Secondary Orange - Energy and citrus vibes */
-  --color-secondary-50: #fff7ed;
-  --color-secondary-100: #ffedd5;
-  --color-secondary-200: #fed7aa;
-  --color-secondary-300: #fdba74;
-  --color-secondary-400: #fb923c;
-  --color-secondary-500: #f97316;
-  --color-secondary-600: #ea580c;
-  --color-secondary-700: #c2410c;
-  --color-secondary-800: #9a3412;
-  --color-secondary-900: #7c2d12;
-  --color-secondary-950: #431407;
+  /* Secondary - Fresh Green (Health, Natural) */
+  --color-secondary-50: #f0fdf4;
+  --color-secondary-100: #dcfce7;
+  --color-secondary-200: #bbf7d0;
+  --color-secondary-300: #86efac;
+  --color-secondary-400: #4ade80;
+  --color-secondary-500: #22c55e;
+  --color-secondary-600: #16a34a;
+  --color-secondary-700: #15803d;
+  --color-secondary-800: #166534;
+  --color-secondary-900: #14532d;
+  --color-secondary-950: #052e16;
   
-  /* Accent Yellow - Sunshine and tropical fruits */
+  /* Accent - Tropical Yellow (Joy, Energy) */
   --color-accent-50: #fefce8;
   --color-accent-100: #fef9c3;
   --color-accent-200: #fef08a;
@@ -45,20 +46,9 @@
   --color-accent-950: #422006;
   
   /* ===========================================
-     FRUIT PALETTE - Menu & Category Colors
-     =========================================== */
-  --color-berry: #dc2626;
-  --color-berry-light: #fecaca;
-  --color-tropical: #0891b2;
-  --color-tropical-light: #cffafe;
-  --color-citrus: #f59e0b;
-  --color-citrus-light: #fef3c7;
-  --color-leafy: #16a34a;
-  --color-leafy-light: #dcfce7;
-  
-  /* ===========================================
      NEUTRAL COLORS
      =========================================== */
+  
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
   --color-neutral-200: #e5e5e5;
@@ -74,108 +64,116 @@
   /* ===========================================
      SEMANTIC COLORS
      =========================================== */
-  --color-success: #22c55e;
+  
+  /* Success - Healthy Green */
   --color-success-light: #dcfce7;
-  --color-warning: #f59e0b;
+  --color-success: #22c55e;
+  --color-success-dark: #15803d;
+  
+  /* Warning - Mango */
   --color-warning-light: #fef3c7;
-  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-warning-dark: #b45309;
+  
+  /* Error - Berry Red */
   --color-error-light: #fee2e2;
-  --color-info: #3b82f6;
+  --color-error: #ef4444;
+  --color-error-dark: #b91c1c;
+  
+  /* Info - Blueberry */
   --color-info-light: #dbeafe;
+  --color-info: #3b82f6;
+  --color-info-dark: #1d4ed8;
+  
+  /* ===========================================
+     FRUIT PALETTE - Special Accents
+     =========================================== */
+  
+  --color-fruit-strawberry: #dc2626;
+  --color-fruit-watermelon: #f43f5e;
+  --color-fruit-mango: #fbbf24;
+  --color-fruit-pineapple: #fde047;
+  --color-fruit-kiwi: #84cc16;
+  --color-fruit-apple: #22c55e;
+  --color-fruit-mint: #2dd4bf;
+  --color-fruit-blueberry: #6366f1;
+  --color-fruit-grape: #a855f7;
+  --color-fruit-acai: #7c3aed;
   
   /* ===========================================
      BACKGROUND COLORS
      =========================================== */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f0fdf4;
-  --bg-tertiary: #fafafa;
-  --bg-accent: #fff7ed;
-  --bg-dark: #171717;
+  
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #fafafa;
+  --color-bg-tertiary: #f5f5f5;
+  --color-bg-cream: #fffbeb;
+  --color-bg-mint: #f0fdf4;
   
   /* ===========================================
-     TEXT COLORS
+     TYPOGRAPHY
      =========================================== */
-  --text-primary: #171717;
-  --text-secondary: #525252;
-  --text-tertiary: #737373;
-  --text-inverse: #ffffff;
-  --text-accent: #16a34a;
-  --text-link: #15803d;
-  --text-link-hover: #166534;
   
-  /* ===========================================
-     TYPOGRAPHY - Font Families
-     =========================================== */
-  --font-display: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
-  --font-heading: 'Nunito', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* Font Families */
+  --font-family-display: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-family-body: 'Nunito', 'Inter', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
   
-  /* ===========================================
-     TYPOGRAPHY - Font Sizes
-     =========================================== */
-  --text-xs: 0.75rem;      /* 12px */
-  --text-sm: 0.875rem;     /* 14px */
-  --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
-  --text-xl: 1.25rem;      /* 20px */
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-3xl: 1.875rem;    /* 30px */
-  --text-4xl: 2.25rem;     /* 36px */
-  --text-5xl: 3rem;        /* 48px */
-  --text-6xl: 3.75rem;     /* 60px */
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-6xl: 3.75rem;   /* 60px */
   
-  /* ===========================================
-     TYPOGRAPHY - Line Heights
-     =========================================== */
-  --leading-none: 1;
-  --leading-tight: 1.25;
-  --leading-snug: 1.375;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
-  --leading-loose: 2;
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
   
-  /* ===========================================
-     TYPOGRAPHY - Font Weights
-     =========================================== */
-  --font-thin: 100;
-  --font-light: 300;
-  --font-normal: 400;
-  --font-medium: 500;
-  --font-semibold: 600;
-  --font-bold: 700;
-  --font-extrabold: 800;
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
   
-  /* ===========================================
-     TYPOGRAPHY - Letter Spacing
-     =========================================== */
-  --tracking-tighter: -0.05em;
-  --tracking-tight: -0.025em;
-  --tracking-normal: 0em;
-  --tracking-wide: 0.025em;
-  --tracking-wider: 0.05em;
-  --tracking-widest: 0.1em;
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
   
   /* ===========================================
      SPACING
      =========================================== */
+  
   --space-0: 0;
-  --space-1: 0.25rem;      /* 4px */
-  --space-2: 0.5rem;       /* 8px */
-  --space-3: 0.75rem;      /* 12px */
-  --space-4: 1rem;         /* 16px */
-  --space-5: 1.25rem;      /* 20px */
-  --space-6: 1.5rem;       /* 24px */
-  --space-8: 2rem;         /* 32px */
-  --space-10: 2.5rem;      /* 40px */
-  --space-12: 3rem;        /* 48px */
-  --space-16: 4rem;        /* 64px */
-  --space-20: 5rem;        /* 80px */
-  --space-24: 6rem;        /* 96px */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
   
   /* ===========================================
      BORDER RADIUS
      =========================================== */
+  
   --radius-none: 0;
   --radius-sm: 0.25rem;    /* 4px */
   --radius-md: 0.5rem;     /* 8px */
@@ -188,16 +186,22 @@
   /* ===========================================
      SHADOWS
      =========================================== */
+  
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow-green: 0 0 20px rgb(34 197 94 / 0.3);
-  --shadow-glow-orange: 0 0 20px rgb(249 115 22 / 0.3);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  
+  /* Colored Shadows */
+  --shadow-primary: 0 4px 14px 0 rgb(249 115 22 / 0.3);
+  --shadow-secondary: 0 4px 14px 0 rgb(34 197 94 / 0.3);
   
   /* ===========================================
      TRANSITIONS
      =========================================== */
+  
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 350ms ease;
@@ -206,7 +210,7 @@
   /* ===========================================
      Z-INDEX
      =========================================== */
-  --z-base: 0;
+  
   --z-dropdown: 100;
   --z-sticky: 200;
   --z-fixed: 300;
@@ -214,5 +218,39 @@
   --z-modal: 500;
   --z-popover: 600;
   --z-tooltip: 700;
-  --z-toast: 800;
+}
+
+/* ===========================================
+   DARK MODE OVERRIDES
+   =========================================== */
+
+[data-theme="dark"] {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #171717;
+  --color-bg-tertiary: #262626;
+  --color-bg-cream: #1c1917;
+  --color-bg-mint: #052e16;
+}
+
+/* ===========================================
+   UTILITY CLASSES
+   =========================================== */
+
+.text-gradient-juice {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-fresh {
+  background: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-600));
+}
+
+.bg-gradient-tropical {
+  background: linear-gradient(135deg, var(--color-primary-400), var(--color-accent-400));
+}
+
+.bg-gradient-berry {
+  background: linear-gradient(135deg, var(--color-fruit-strawberry), var(--color-fruit-grape));
 }
