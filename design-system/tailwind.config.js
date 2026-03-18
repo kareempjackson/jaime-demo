@@ -1,28 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      /* Colors */
       colors: {
+        // Primary - Fresh Citrus Orange
         primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
-        },
-        secondary: {
           50: '#fff7ed',
           100: '#ffedd5',
           200: '#fed7aa',
@@ -34,7 +22,24 @@ module.exports = {
           800: '#9a3412',
           900: '#7c2d12',
           950: '#431407',
+          DEFAULT: '#f97316',
         },
+        // Secondary - Leafy Green
+        secondary: {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+          950: '#052e16',
+          DEFAULT: '#22c55e',
+        },
+        // Accent - Berry Purple
         accent: {
           50: '#faf5ff',
           100: '#f3e8ff',
@@ -43,80 +48,80 @@ module.exports = {
           400: '#c084fc',
           500: '#a855f7',
           600: '#9333ea',
-          700: '#7c3aed',
+          700: '#7e22ce',
           800: '#6b21a8',
           900: '#581c87',
           950: '#3b0764',
+          DEFAULT: '#a855f7',
+        },
+        // Semantic colors
+        success: {
+          DEFAULT: '#22c55e',
+          light: '#dcfce7',
+        },
+        warning: {
+          DEFAULT: '#eab308',
+          light: '#fef9c3',
+        },
+        error: {
+          DEFAULT: '#ef4444',
+          light: '#fee2e2',
+        },
+        info: {
+          DEFAULT: '#3b82f6',
+          light: '#dbeafe',
         },
       },
-      /* Typography */
       fontFamily: {
-        display: ['Poppins', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       fontSize: {
-        'display-lg': ['3.75rem', { lineHeight: '1', letterSpacing: '-0.025em' }],
-        'display-md': ['3rem', { lineHeight: '1', letterSpacing: '-0.025em' }],
-        'display-sm': ['2.25rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1.25' }],
+        '6xl': ['3.75rem', { lineHeight: '1.2' }],
       },
-      /* Spacing */
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
-      },
-      /* Border Radius */
       borderRadius: {
-        '4xl': '2rem',
+        sm: '0.25rem',
+        md: '0.375rem',
+        lg: '0.5rem',
+        xl: '0.75rem',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
       },
-      /* Shadows */
       boxShadow: {
-        'primary': '0 4px 14px 0 rgb(34 197 94 / 0.25)',
-        'secondary': '0 4px 14px 0 rgb(249 115 22 / 0.25)',
-        'accent': '0 4px 14px 0 rgb(168 85 247 / 0.25)',
-        'soft': '0 2px 15px -3px rgb(0 0 0 / 0.07), 0 10px 20px -2px rgb(0 0 0 / 0.04)',
+        sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+        inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
       },
-      /* Animations */
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'slide-down': 'slideDown 0.3s ease-out',
-        'scale-in': 'scaleIn 0.2s ease-out',
-        'spin-slow': 'spin 3s linear infinite',
-        'pulse-soft': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'bounce-soft': 'bounce 2s infinite',
+      transitionDuration: {
+        fast: '150ms',
+        normal: '200ms',
+        slow: '300ms',
+        slower: '500ms',
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        slideDown: {
-          '0%': { opacity: '0', transform: 'translateY(-10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-      },
-      /* Background Patterns */
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-fresh': 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%)',
-        'gradient-citrus': 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%)',
-        'gradient-berry': 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 50%, #e9d5ff 100%)',
-        'gradient-hero': 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #f97316 100%)',
+      zIndex: {
+        dropdown: '1000',
+        sticky: '1020',
+        fixed: '1030',
+        'modal-backdrop': '1040',
+        modal: '1050',
+        popover: '1060',
+        tooltip: '1070',
+        toast: '1080',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [],
+};
