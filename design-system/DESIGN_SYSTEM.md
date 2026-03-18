@@ -1,364 +1,258 @@
-# Jaime Demo - Juice Bar Design System
+# Jaime Demo Design System
 
-> A fresh, vibrant design system for a modern juice bar application.
+## Juice Bar Design Language
 
----
-
-## 📋 Table of Contents
-
-1. [Brand Overview](#brand-overview)
-2. [Colors](#colors)
-3. [Typography](#typography)
-4. [Spacing](#spacing)
-5. [Components](#components)
-6. [Icons](#icons)
-7. [Figma Guidelines](#figma-guidelines)
+A fresh, vibrant, and energetic design system built for a modern juice bar application. The design language emphasizes health, freshness, and natural ingredients through its color palette, typography, and visual elements.
 
 ---
 
-## 🎨 Brand Overview
+## 🎨 Color Palette
 
-### Brand Personality
-- **Fresh** - Clean, natural, wholesome
-- **Energetic** - Vibrant, lively, dynamic
-- **Friendly** - Approachable, welcoming, warm
-- **Modern** - Contemporary, sleek, innovative
+### Primary Colors
 
-### Design Principles
-1. **Clarity First** - Every element serves a purpose
-2. **Natural Feel** - Colors and shapes inspired by nature
-3. **Delightful Details** - Subtle animations and micro-interactions
-4. **Accessible Always** - WCAG 2.1 AA compliant minimum
+**Primary Green** - Represents freshness, health, and natural ingredients
+- Use for: Primary buttons, success states, health-focused elements
+- Main: `#22c55e` (primary-500)
+- Light backgrounds: `#f0fdf4` (primary-50)
+- Dark accents: `#15803d` (primary-700)
 
----
+**Secondary Orange** - Represents energy, citrus, and vitality
+- Use for: Secondary actions, highlights, energetic elements
+- Main: `#f97316` (secondary-500)
+- Light backgrounds: `#fff7ed` (secondary-50)
+- Dark accents: `#c2410c` (secondary-700)
 
-## 🎨 Colors
+**Accent Yellow** - Represents sunshine, tropical fruits, and happiness
+- Use for: Accent elements, promotions, call-to-actions
+- Main: `#facc15` (accent-400)
+- Light backgrounds: `#fefce8` (accent-50)
 
-### Primary Palette - Fresh Green
-Used for primary actions, key UI elements, and brand identity.
+### Fruit Category Colors
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `primary-50` | #f0fdf4 | Subtle backgrounds |
-| `primary-100` | #dcfce7 | Hover states, light fills |
-| `primary-200` | #bbf7d0 | Borders, dividers |
-| `primary-300` | #86efac | Inactive states |
-| `primary-400` | #4ade80 | Hover states |
-| `primary-500` | #22c55e | **Primary brand color** |
-| `primary-600` | #16a34a | Primary buttons, links |
-| `primary-700` | #15803d | Hover on primary buttons |
-| `primary-800` | #166534 | Active states |
-| `primary-900` | #14532d | Dark accents |
+Used for categorizing menu items and creating visual variety:
 
-### Secondary Palette - Citrus Orange
-Used for secondary actions, highlights, and energy.
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `secondary-50` | #fff7ed | Subtle backgrounds |
-| `secondary-500` | #f97316 | **Secondary brand color** |
-| `secondary-600` | #ea580c | Secondary buttons |
-| `secondary-700` | #c2410c | Hover states |
-
-### Accent Palette - Berry Purple
-Used for special highlights, rewards, and premium features.
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `accent-50` | #faf5ff | Subtle backgrounds |
-| `accent-500` | #a855f7 | **Accent color** |
-| `accent-600` | #9333ea | Interactive accent |
+| Category | Color | Light | Use Case |
+|----------|-------|-------|----------|
+| Berry | `#dc2626` | `#fecaca` | Berry-based juices |
+| Tropical | `#0891b2` | `#cffafe` | Tropical fruit blends |
+| Citrus | `#f59e0b` | `#fef3c7` | Citrus juices |
+| Leafy | `#16a34a` | `#dcfce7` | Green smoothies |
 
 ### Semantic Colors
 
-| Purpose | Color | Hex | Usage |
-|---------|-------|-----|-------|
-| Success | Green | #22c55e | Confirmations, complete states |
-| Warning | Yellow | #eab308 | Alerts, caution states |
-| Error | Red | #ef4444 | Errors, destructive actions |
-| Info | Blue | #3b82f6 | Information, tips |
-
-### Neutral Colors
-Used for text, backgrounds, borders, and UI chrome.
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `neutral-50` | #fafaf9 | Page background |
-| `neutral-100` | #f5f5f4 | Card backgrounds |
-| `neutral-200` | #e7e5e4 | Borders, dividers |
-| `neutral-500` | #78716c | Secondary text |
-| `neutral-700` | #44403c | Body text |
-| `neutral-900` | #1c1917 | Headlines, primary text |
+| Purpose | Color | Light Variant |
+|---------|-------|---------------|
+| Success | `#22c55e` | `#dcfce7` |
+| Warning | `#f59e0b` | `#fef3c7` |
+| Error | `#ef4444` | `#fee2e2` |
+| Info | `#3b82f6` | `#dbeafe` |
 
 ---
 
-## 📝 Typography
+## 🔤 Typography
 
 ### Font Families
 
 ```css
---font-display: 'Poppins', sans-serif;  /* Headlines, titles */
---font-body: 'Inter', sans-serif;        /* Body text, UI */
---font-mono: 'JetBrains Mono', monospace; /* Code, numbers */
+/* Display - Fun & Friendly headlines */
+font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+
+/* Headings - Clean & Modern */
+font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+
+/* Body - Highly readable */
+font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+/* Monospace - Prices & codes */
+font-family: 'JetBrains Mono', 'Fira Code', monospace;
 ```
 
 ### Font Loading
-Include these Google Fonts in your HTML:
+
+Add to your HTML `<head>`:
+
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 ```
 
 ### Type Scale
 
-| Name | Size | Weight | Line Height | Usage |
-|------|------|--------|-------------|-------|
-| Display XL | 60px | 800 | 1 | Hero headlines |
-| Display LG | 48px | 700 | 1.1 | Page titles |
-| Heading 1 | 36px | 700 | 1.2 | Section headers |
-| Heading 2 | 30px | 600 | 1.25 | Card titles |
-| Heading 3 | 24px | 600 | 1.3 | Sub-sections |
-| Heading 4 | 20px | 600 | 1.4 | Small headers |
-| Body Large | 18px | 400 | 1.6 | Lead paragraphs |
-| Body | 16px | 400 | 1.5 | Default text |
-| Body Small | 14px | 400 | 1.5 | Secondary text |
-| Caption | 12px | 500 | 1.4 | Labels, captions |
+| Name | Size | Line Height | Weight | Use Case |
+|------|------|-------------|--------|----------|
+| display-lg | 60px | 1 | 700 | Hero headlines |
+| display-md | 48px | 1 | 700 | Page titles |
+| display-sm | 36px | 1.1 | 700 | Section headers |
+| heading-lg | 30px | 1.25 | 600 | Major headings |
+| heading-md | 24px | 1.3 | 600 | Subheadings |
+| heading-sm | 20px | 1.4 | 600 | Card titles |
+| body-lg | 18px | 1.6 | 400 | Lead paragraphs |
+| body-md | 16px | 1.5 | 400 | Body text |
+| body-sm | 14px | 1.5 | 400 | Secondary text |
+| caption | 12px | 1.4 | 400 | Labels, hints |
 
 ---
 
 ## 📐 Spacing
 
-### Base Unit: 4px
+Using a 4px base unit:
 
-| Token | Value | Pixels | Usage |
-|-------|-------|--------|-------|
-| `space-1` | 0.25rem | 4px | Tight spacing |
-| `space-2` | 0.5rem | 8px | Icon gaps |
-| `space-3` | 0.75rem | 12px | Small padding |
-| `space-4` | 1rem | 16px | Default padding |
-| `space-6` | 1.5rem | 24px | Card padding |
-| `space-8` | 2rem | 32px | Section gaps |
-| `space-12` | 3rem | 48px | Large sections |
-| `space-16` | 4rem | 64px | Page sections |
-| `space-24` | 6rem | 96px | Hero spacing |
+| Token | Value | Pixels |
+|-------|-------|--------|
+| space-1 | 0.25rem | 4px |
+| space-2 | 0.5rem | 8px |
+| space-3 | 0.75rem | 12px |
+| space-4 | 1rem | 16px |
+| space-5 | 1.25rem | 20px |
+| space-6 | 1.5rem | 24px |
+| space-8 | 2rem | 32px |
+| space-10 | 2.5rem | 40px |
+| space-12 | 3rem | 48px |
+| space-16 | 4rem | 64px |
+| space-20 | 5rem | 80px |
+| space-24 | 6rem | 96px |
 
 ---
 
-## 🧩 Components
+## 🔲 Border Radius
 
-### Button Variants
+Rounded, friendly corners that match the organic, natural theme:
 
-#### Primary Button
+| Token | Value | Use Case |
+|-------|-------|----------|
+| radius-sm | 4px | Small elements, tags |
+| radius-md | 8px | Inputs, small cards |
+| radius-lg | 12px | Cards, buttons |
+| radius-xl | 16px | Large cards |
+| radius-2xl | 24px | Modal, featured cards |
+| radius-3xl | 32px | Hero elements |
+| radius-full | 9999px | Avatars, pills |
+
+---
+
+## 🌑 Shadows
+
 ```css
-background: var(--color-primary-600);
-color: white;
-border-radius: var(--radius-lg);
-padding: var(--space-3) var(--space-6);
-font-weight: 600;
+/* Standard shadows */
+shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+/* Glow shadows for emphasis */
+shadow-glow-green: 0 0 20px rgb(34 197 94 / 0.3);
+shadow-glow-orange: 0 0 20px rgb(249 115 22 / 0.3);
 ```
-- Hover: `background: var(--color-primary-700)`
-- Active: `background: var(--color-primary-800)`
-- Disabled: `opacity: 0.5`
 
-#### Secondary Button
-```css
-background: white;
-color: var(--color-primary-600);
-border: 2px solid var(--color-primary-600);
-border-radius: var(--radius-lg);
-```
+---
 
-#### Ghost Button
-```css
-background: transparent;
-color: var(--color-primary-600);
-border: none;
+## 🎬 Animations
+
+### Transitions
+
+| Name | Duration | Use Case |
+|------|----------|----------|
+| transition-fast | 150ms | Micro-interactions |
+| transition-normal | 250ms | Standard transitions |
+| transition-slow | 350ms | Complex animations |
+| transition-bounce | 500ms | Playful interactions |
+
+### Keyframe Animations
+
+- `animate-wiggle` - Playful attention grabber
+- `animate-slide-up` - Content entering from below
+- `animate-slide-down` - Dropdowns, menus
+- `animate-fade-in` - Subtle appearance
+- `animate-scale-in` - Modal/popup entrance
+- `animate-bounce-slow` - Gentle bounce
+- `animate-pulse-slow` - Subtle pulsing
+
+---
+
+## 🧩 Component Guidelines
+
+### Buttons
+
+```jsx
+// Primary - Main actions
+<button className="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-glow-green transition-all">
+  Order Now
+</button>
+
+// Secondary - Alternative actions
+<button className="bg-secondary-500 hover:bg-secondary-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-glow-orange transition-all">
+  View Menu
+</button>
+
+// Outline - Subtle actions
+<button className="border-2 border-primary-500 text-primary-600 hover:bg-primary-50 font-semibold px-6 py-3 rounded-xl transition-all">
+  Learn More
+</button>
 ```
 
 ### Cards
 
-#### Default Card
+```jsx
+<div className="bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 transition-all">
+  <h3 className="font-heading text-heading-sm text-neutral-900">Green Goddess</h3>
+  <p className="font-body text-body-sm text-neutral-600 mt-2">Spinach, kale, apple, ginger</p>
+  <span className="font-mono text-lg text-primary-600 font-semibold mt-4 block">$8.99</span>
+</div>
+```
+
+### Form Inputs
+
+```jsx
+<input 
+  className="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all font-body text-body-md"
+  placeholder="Enter your email"
+/>
+```
+
+---
+
+## 📱 Responsive Breakpoints
+
+| Breakpoint | Width | Use Case |
+|------------|-------|----------|
+| sm | 640px | Mobile landscape |
+| md | 768px | Tablets |
+| lg | 1024px | Small desktops |
+| xl | 1280px | Desktops |
+| 2xl | 1536px | Large screens |
+
+---
+
+## 🍎 Brand Voice
+
+- **Fresh** - Clean, crisp, and natural
+- **Friendly** - Approachable and welcoming
+- **Energetic** - Vibrant and lively
+- **Healthy** - Promoting wellness and good choices
+- **Modern** - Contemporary and tech-forward
+
+---
+
+## 📁 File Structure
+
+```
+design-system/
+├── tokens.css          # CSS custom properties
+├── tailwind.config.js  # Tailwind configuration
+└── DESIGN_SYSTEM.md    # This documentation
+```
+
+---
+
+## Usage
+
+1. Import `tokens.css` in your main stylesheet
+2. Configure Tailwind with the provided config
+3. Load Google Fonts in your HTML
+4. Reference this guide for component patterns
+
 ```css
-background: white;
-border-radius: var(--radius-xl);
-padding: var(--space-6);
-box-shadow: var(--shadow-sm);
-border: 1px solid var(--color-border-default);
+/* In your global CSS */
+@import './design-system/tokens.css';
 ```
-
-#### Product Card (Menu Item)
-```css
-background: white;
-border-radius: var(--radius-2xl);
-padding: var(--space-4);
-box-shadow: var(--shadow-md);
-transition: transform 0.2s ease, box-shadow 0.2s ease;
-```
-- Hover: `transform: translateY(-4px); box-shadow: var(--shadow-lg)`
-
-### Inputs
-
-#### Text Input
-```css
-background: var(--color-bg-secondary);
-border: 2px solid var(--color-border-default);
-border-radius: var(--radius-lg);
-padding: var(--space-3) var(--space-4);
-font-size: var(--font-size-base);
-```
-- Focus: `border-color: var(--color-primary-500); outline: none; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1)`
-- Error: `border-color: var(--color-error)`
-
-### Navigation
-
-#### Header Height: 64px (desktop) / 56px (mobile)
-#### Bottom Nav Height: 72px (mobile only)
-
-### Badges & Tags
-
-#### Category Badge
-```css
-background: var(--color-primary-100);
-color: var(--color-primary-700);
-border-radius: var(--radius-full);
-padding: var(--space-1) var(--space-3);
-font-size: var(--font-size-sm);
-font-weight: 500;
-```
-
-#### Price Tag
-```css
-font-family: var(--font-family-display);
-font-size: var(--font-size-xl);
-font-weight: 700;
-color: var(--color-primary-600);
-```
-
----
-
-## 🎯 Icons
-
-### Recommended: Lucide Icons
-- Style: Outlined, 2px stroke
-- Default size: 24px
-- Touch target minimum: 44px × 44px
-
-### Key Icons for Juice Bar
-- `Leaf` - Natural/organic indicator
-- `Droplet` - Hydration/water content
-- `Apple` - Fruits
-- `Carrot` - Vegetables
-- `Star` - Favorites/ratings
-- `Heart` - Wishlist
-- `ShoppingBag` - Cart
-- `Search` - Search
-- `User` - Account
-- `Plus/Minus` - Quantity controls
-
----
-
-## 🎨 Figma Guidelines
-
-### Setting Up Figma
-
-1. **Create a New Team Library**
-   - File → New Design File
-   - Name: "Jaime Demo - Design System"
-
-2. **Set Up Pages**
-   ```
-   📄 Cover
-   📄 Colors
-   📄 Typography
-   📄 Icons
-   📄 Components
-   📄 Templates
-   ```
-
-3. **Define Color Styles**
-   - Create color styles for each token
-   - Use naming: `primary/500`, `secondary/500`, etc.
-   - Include light and dark mode variants
-
-4. **Define Text Styles**
-   - Create text styles matching the type scale
-   - Name: `display/xl`, `heading/1`, `body/default`, etc.
-
-5. **Create Components**
-   - Build atomic components first (buttons, inputs)
-   - Use variants for different states
-   - Create component documentation
-
-### Component Structure
-
-```
-🧩 Button
-  ├─ Variant: Primary / Secondary / Ghost
-  ├─ Size: Large / Medium / Small
-  └─ State: Default / Hover / Active / Disabled
-
-🧩 Input
-  ├─ Type: Text / Password / Search
-  └─ State: Default / Focus / Error / Disabled
-
-🧩 Card
-  ├─ Product Card
-  ├─ Category Card
-  └─ Info Card
-```
-
-### Auto Layout Settings
-- Use Auto Layout for all components
-- Consistent padding: 16px (small), 24px (medium), 32px (large)
-- Gap between elements: 8px (tight), 16px (default), 24px (loose)
-
-### Responsive Breakpoints
-| Name | Width | Grid |
-|------|-------|------|
-| Mobile | 375px | 4 columns, 16px gutter |
-| Tablet | 768px | 8 columns, 24px gutter |
-| Desktop | 1280px | 12 columns, 24px gutter |
-
----
-
-## 📱 Mobile-First Approach
-
-This design system follows a mobile-first philosophy:
-
-1. Design for mobile (375px) first
-2. Scale up to tablet (768px)
-3. Enhance for desktop (1280px+)
-4. Touch targets minimum 44px × 44px
-5. Thumb-friendly navigation zones
-
----
-
-## ✅ Accessibility Checklist
-
-- [ ] Color contrast ratio ≥ 4.5:1 for normal text
-- [ ] Color contrast ratio ≥ 3:1 for large text
-- [ ] Focus states visible on all interactive elements
-- [ ] Touch targets ≥ 44px × 44px
-- [ ] Alt text for all images
-- [ ] Semantic HTML structure
-- [ ] Keyboard navigation support
-- [ ] Screen reader testing
-
----
-
-## 🚀 Implementation
-
-### CSS Variables
-Import `tokens.css` for CSS custom properties.
-
-### Tailwind CSS
-Extend your `tailwind.config.js` with the provided configuration.
-
-### React Components
-Coming in Sprint 2: Pre-built React component library.
-
----
-
-*Last updated: Sprint 1*
-*Maintained by: Jaime Demo Design Team*
